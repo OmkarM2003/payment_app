@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:number_pad_keyboard/number_pad_keyboard.dart';
 import 'package:payment_app/services/database_services.dart';
 
@@ -80,13 +82,28 @@ class _PinVerifyPageState extends State<PinVerifyPage> {
   @override
   Widget build(BuildContext context) {
     return issubmitted
-        ? Scaffold(body: Center(child: CircularProgressIndicator()))
-        : Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              "Verify PIN",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+        ? Scaffold(
+          backgroundColor: Color(0xFF121212),
+          body: Center(
+            child: LottieBuilder.asset(
+              "assets/animations/loading.json",
+              height: 100,
             ),
+          ),
+        )
+        : Scaffold(
+          backgroundColor: Color(0xFF121212),
+          appBar: AppBar(
+            backgroundColor: Color(0xFF121212),
+            title: Text(
+              "Verify PIN",
+              style: GoogleFonts.lato(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                color: Colors.white,
+              ),
+            ),
+            iconTheme: IconThemeData(color: Colors.white),
             centerTitle: true,
           ),
           body: SizedBox(
@@ -97,19 +114,45 @@ class _PinVerifyPageState extends State<PinVerifyPage> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: TextFormField(
+                    style: GoogleFonts.lato(
+                      fontSize: 24.0,
+                      color: Colors.white,
+                    ),
+
                     obscureText: true,
                     controller: _textController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      focusColor: Colors.white,
                       border: OutlineInputBorder(),
                       labelText: 'Enter PIN',
+                      labelStyle: GoogleFonts.lato(color: Colors.white),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
                     ),
                     readOnly: true,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 24.0),
                   ),
                 ),
                 const SizedBox(height: 200.0),
                 NumberPadKeyboard(
+                  deleteColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  enterButtonTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
                   addDigit: _addDigit,
                   backspace: _backspace,
                   enterButtonText: isLoading ? 'Verifying...' : 'ENTER',

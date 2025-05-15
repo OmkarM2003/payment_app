@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:number_pad_keyboard/number_pad_keyboard.dart';
 import 'package:payment_app/services/database_services.dart';
 import 'package:payment_app/view/home_page.dart';
@@ -39,7 +40,7 @@ class _SetUpPinState extends State<SetUpPin> {
       appBar: AppBar(
         title: Text(
           "Set Up 4 Digit PIN",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          style: GoogleFonts.lato(fontWeight: FontWeight.bold, fontSize: 25),
         ),
         centerTitle: true,
       ),
@@ -51,14 +52,26 @@ class _SetUpPinState extends State<SetUpPin> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextFormField(
+                style: GoogleFonts.lato(fontSize: 24.0, color: Colors.white),
+
+                obscureText: true,
                 controller: _textController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
+                  focusColor: Colors.white,
                   border: OutlineInputBorder(),
-                  labelText: 'PIN Code',
+                  labelText: 'Enter PIN',
+                  labelStyle: GoogleFonts.lato(color: Colors.white),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white, width: 2),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white, width: 1),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
                 ),
                 readOnly: true,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 24.0),
               ),
             ),
 

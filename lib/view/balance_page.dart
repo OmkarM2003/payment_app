@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:payment_app/services/auth_services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:payment_app/services/database_services.dart';
 import 'package:payment_app/view/feature_widgets/button.dart';
 import 'package:payment_app/view/home_page.dart';
@@ -12,6 +12,7 @@ class BalancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF121212),
       body: StreamBuilder<QuerySnapshot>(
         stream:
             DatabaseServices(
@@ -38,11 +39,19 @@ class BalancePage extends StatelessWidget {
               children: [
                 Text(
                   "Balance ",
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.lato(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 Text(
                   "₹ ${userData['balance']}",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.lato(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 CustomButton(
                   hg: 50,

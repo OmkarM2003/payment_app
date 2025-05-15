@@ -122,7 +122,6 @@ class DatabaseServices {
 
       return storedPin == enteredPin;
     } catch (e) {
-      print("Error verifying PIN: $e");
       return false;
     }
   }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:payment_app/view/feature_widgets/button.dart';
 import 'package:payment_app/view/payment_page.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
@@ -14,20 +15,33 @@ class QrCodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: Color(0xFF121212),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF121212),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "Your QR:",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: GoogleFonts.lato(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-            QrImageView(
-              data: FirebaseAuth.instance.currentUser!.uid,
-              version: QrVersions.auto,
-              size: 200.0,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: QrImageView(
+                data: FirebaseAuth.instance.currentUser!.uid,
+                version: QrVersions.auto,
+                size: 200.0,
+                backgroundColor: Colors.white,
+              ),
             ),
+
             CustomButton(
               hg: 50,
               wg: 200,

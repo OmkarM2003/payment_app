@@ -44,6 +44,8 @@ dependencies:
   audioplayers: ^6.4.0
   qr_flutter: ^4.1.0
   qr_code_scanner_plus: ^2.0.10+1
+  google_fonts: ^6.2.1
+  no_screenshot: ^0.3.1
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +71,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/animations/animation.json
+    - assets/animations/signupanimation.json
+    - assets/animations/loading.json
+    - assets/animations/loginanimation.json
     - assets/sounds/payment_sound.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see

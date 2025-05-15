@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:payment_app/helper/helper_fuction.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:payment_app/services/auth_services.dart';
 import 'package:payment_app/view/home_page.dart';
 import 'package:payment_app/view/auth/register_page.dart';
@@ -42,8 +43,6 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     if (result == true) {
-      print("Login successful, navigating to HomePage");
-
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
@@ -58,37 +57,43 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF121212),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              LottieBuilder.asset(
+                "assets/animations/loginanimation.json",
+                height: 300,
+              ),
               // Email Field
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  style: GoogleFonts.lato(color: Colors.white),
                   controller: emailController,
                   decoration: InputDecoration(
-                    floatingLabelStyle: const TextStyle(
+                    floatingLabelStyle: GoogleFonts.lato(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     labelText: "Email",
-                    labelStyle: const TextStyle(
+                    labelStyle: GoogleFonts.lato(
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
-                        color: Colors.blue,
+                        color: Colors.white,
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(25),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
-                        color: Colors.blue,
+                        color: Colors.white,
                         width: 1,
                       ),
                       borderRadius: BorderRadius.circular(25),
@@ -100,28 +105,30 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  style: GoogleFonts.lato(color: Colors.white),
+
                   obscureText: true,
                   controller: passwordController,
                   decoration: InputDecoration(
-                    floatingLabelStyle: const TextStyle(
+                    floatingLabelStyle: GoogleFonts.lato(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     labelText: "Password",
-                    labelStyle: const TextStyle(
+                    labelStyle: GoogleFonts.lato(
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
-                        color: Colors.blue,
+                        color: Colors.white,
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(25),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
-                        color: Colors.blue,
+                        color: Colors.white,
                         width: 1,
                       ),
                       borderRadius: BorderRadius.circular(25),
@@ -129,33 +136,59 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              // Sign Up Button
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed:
-                    isLoading
-                        ? null // Disable button while loading
-                        : _handleLogIn,
-                child:
-                    isLoading
-                        ? const CircularProgressIndicator()
-                        : const Text(
-                          "Login",
-                          style: TextStyle(color: Colors.black),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: isLoading ? null : _handleLogIn,
+                  child: Container(
+                    padding: isLoading ? EdgeInsets.all(0) : EdgeInsets.all(8),
+                    height: 50,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: Color(0xFFE1FF8A),
+                      boxShadow: [
+                        BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          color: Colors.black,
+                          offset: Offset(5, 5),
                         ),
+                      ],
+                    ),
+                    child: Center(
+                      child:
+                          isLoading
+                              ? LottieBuilder.asset(
+                                "assets/animations/loading.json",
+                                height: 100,
+                              )
+                              : Text(
+                                "Login",
+                                style: GoogleFonts.lato(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                    ),
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: RichText(
                   text: TextSpan(
                     text: "Don't have an account? ",
-                    style: const TextStyle(color: Colors.black),
+                    style: GoogleFonts.lato(color: Colors.white, fontSize: 18),
                     children: [
                       TextSpan(
                         text: "SignUp",
-                        style: const TextStyle(
+                        style: GoogleFonts.lato(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
                         recognizer:
                             TapGestureRecognizer()

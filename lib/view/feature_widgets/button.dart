@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomButton extends StatelessWidget {
-  double hg;
-  double wg;
-  VoidCallback onpressed;
-  String display;
-  CustomButton({
+  final double hg;
+  final double wg;
+  final VoidCallback onpressed;
+  final String display;
+  const CustomButton({
     super.key,
     required this.hg,
     required this.wg,
@@ -23,7 +24,7 @@ class CustomButton extends StatelessWidget {
         width: wg,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
-          color: Color(0xFF720D5D),
+          color: Color(0xFFE1FF8A),
           boxShadow: [
             BoxShadow(
               spreadRadius: 2,
@@ -36,7 +37,10 @@ class CustomButton extends StatelessWidget {
         child: Center(
           child: Text(
             display,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+            style: GoogleFonts.lato(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

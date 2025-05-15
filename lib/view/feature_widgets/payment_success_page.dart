@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class PaymentSuccessPage extends StatefulWidget {
@@ -38,11 +39,12 @@ class _PaymentSuccessPageState extends State<PaymentSuccessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF121212),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: 200,
               width: 200,
               child: Lottie.asset(
@@ -53,13 +55,17 @@ class _PaymentSuccessPageState extends State<PaymentSuccessPage> {
             const SizedBox(height: 20),
             Text(
               "₹${widget.amount} ${widget.type} to ${widget.receiverName}",
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: GoogleFonts.lato(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
-            const Text(
-              "Redirecting to home...",
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            Text(
+              "Redirecting to homepage...",
+              style: GoogleFonts.lato(fontSize: 16, color: Colors.grey),
             ),
           ],
         ),

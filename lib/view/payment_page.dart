@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:payment_app/services/auth_services.dart';
 import 'package:payment_app/services/database_services.dart';
 import 'package:payment_app/view/feature_widgets/button.dart';
@@ -9,8 +9,8 @@ import 'package:payment_app/view/feature_widgets/payment_success_page.dart';
 import 'package:payment_app/view/home_page.dart';
 
 class PaymentPage extends StatefulWidget {
-  String? recevieQrUid;
-  PaymentPage({super.key, this.recevieQrUid});
+  final String? recevieQrUid;
+  const PaymentPage({super.key, this.recevieQrUid});
 
   @override
   State<PaymentPage> createState() => _PaymentPageState();
@@ -52,7 +52,6 @@ class _PaymentPageState extends State<PaymentPage> {
         invalid = false;
       });
     } catch (e) {
-      print('Error fetching receiver name: $e');
       setState(() {
         invalid = true;
         recevierName = "";
@@ -71,7 +70,10 @@ class _PaymentPageState extends State<PaymentPage> {
     final userId = user.uid;
 
     if (_isLoading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return const Scaffold(
+        backgroundColor: Color(0xFF121212),
+        body: Center(child: CircularProgressIndicator()),
+      );
     }
 
     return invalid
@@ -95,14 +97,14 @@ class _PaymentPageState extends State<PaymentPage> {
           ),
         )
         : Scaffold(
-          backgroundColor: const Color(0xFF4E0D3A),
+          backgroundColor: Color(0xFF121212),
           appBar: AppBar(
-            title: const Text(
+            title: Text(
               "Payment Page",
-              style: TextStyle(fontSize: 25, color: Colors.white),
+              style: GoogleFonts.lato(fontSize: 25, color: Colors.white),
             ),
             iconTheme: const IconThemeData(color: Colors.white),
-            backgroundColor: const Color(0xFF4E0D3A),
+            backgroundColor: Color(0xFF121212),
           ),
           body: SafeArea(
             child: SingleChildScrollView(
@@ -112,16 +114,16 @@ class _PaymentPageState extends State<PaymentPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
-                      style: const TextStyle(color: Colors.white),
+                      style: GoogleFonts.lato(color: Colors.white),
                       keyboardType: TextInputType.number,
                       controller: amtController,
                       decoration: InputDecoration(
                         labelText: "Amount",
-                        floatingLabelStyle: const TextStyle(
+                        floatingLabelStyle: GoogleFonts.lato(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
-                        labelStyle: const TextStyle(
+                        labelStyle: GoogleFonts.lato(
                           fontWeight: FontWeight.bold,
                           color: Colors.grey,
                         ),
@@ -130,11 +132,11 @@ class _PaymentPageState extends State<PaymentPage> {
                             color: Colors.white,
                             width: 2,
                           ),
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
-                            color: Colors.blue,
+                            color: Colors.white,
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(25),
@@ -148,7 +150,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       recevierName == ""
                           ? "Select User To Send Money"
                           : "Receiver Name: $recevierName",
-                      style: const TextStyle(
+                      style: GoogleFonts.lato(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                         fontSize: 20,
@@ -162,11 +164,13 @@ class _PaymentPageState extends State<PaymentPage> {
                       final amount = int.tryParse(amtController.text);
                       final receiverUid = recevierUid;
 
-                      if (amount == null || receiverUid.isEmpty) {
+                      if (amount == null ||
+                          amount <= 0 ||
+                          receiverUid.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                              "Enter valid amount and select a user",
+                              "Enter a valid positive amount and select a user",
                             ),
                             backgroundColor: Colors.red,
                           ),
@@ -235,7 +239,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
-                    height: 500,
+                    height: MediaQuery.of(context).size.height / 1.55,
                     width: MediaQuery.of(context).size.width,
                     child: StreamBuilder<QuerySnapshot>(
                       stream: DatabaseServices(uid: userId).gettingUsers(),
@@ -264,7 +268,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 .where((doc) => doc['uid'] != userId)
                                 .toList();
 
-                        return ListView.builder(
+                        return GridView.builder(
                           itemCount: users.length,
                           itemBuilder: (context, index) {
                             final userData =
@@ -276,38 +280,37 @@ class _PaymentPageState extends State<PaymentPage> {
                                 recevierName = userData['fullName'];
                                 setState(() {});
                               },
-                              child: Card(
-                                margin: const EdgeInsets.all(8),
-                                child: ListTile(
-                                  leading: Container(
-                                    padding: const EdgeInsets.all(10),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(13),
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Color.fromARGB(255, 212, 211, 211),
                                     ),
                                     child: const Icon(
                                       Icons.person,
-                                      size: 30,
+                                      size: 60,
                                       color: Colors.black,
                                     ),
                                   ),
-                                  title: Text(
-                                    userData['fullName'] ?? 'No Name',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 17.5,
+                                  Center(
+                                    child: Text(
+                                      userData['fullName'],
+                                      style: GoogleFonts.lato(
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
-                                  subtitle: Text(
-                                    userData['email'] ?? 'No Email',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
+                                ],
                               ),
                             );
                           },
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                              ),
                         );
                       },
                     ),
